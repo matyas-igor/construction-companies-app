@@ -1,0 +1,49 @@
+# This file was generated based on ".graphqlconfig". Do not edit manually.
+
+schema {
+    query: Query
+}
+
+type CompaniesConnection {
+    limit: Int!
+    nodes: [Company]!
+    offset: Int!
+    total: Int!
+}
+
+type Company {
+    city: String!
+    id: Int!
+    logo: String!
+    name: String!
+    speciality: String!
+}
+
+type Info {
+    cities: [String]!
+    specialities: [String]!
+}
+
+type Query {
+    companies(cities: [String], limit: Int, offset: Int, q: String, sortBy: SortBy, specialities: [String]): CompaniesConnection!
+    info: Info!
+}
+
+enum CacheControlScope {
+    PRIVATE
+    PUBLIC
+}
+
+enum Order {
+    asc
+    desc
+}
+
+input SortBy {
+    field: String!
+    order: Order!
+}
+
+
+"The `Upload` scalar type represents a file upload."
+scalar Upload
