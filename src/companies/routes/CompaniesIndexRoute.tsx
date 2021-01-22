@@ -6,6 +6,7 @@ import { Typography } from '@material-ui/core'
 import { useTableOrder } from '../hooks/useTableOrder'
 import { CompaniesTable } from '../components/CompaniesTable'
 import { useTablePagination } from '../hooks/useTablePagination'
+import { Error } from '../../common/components/Error'
 
 const GET_COMPANIES = gql`
   query GetCompanies($offset: Int, $limit: Int, $sortBy: SortBy) {
@@ -36,14 +37,16 @@ export const CompaniesIndexRoute: React.FC = () => {
     },
   })
 
-  console.log('DATA', data, 'PAGE', page, rowsPerPage)
+  console.log('DATA', data, 'PAGE', page, rowsPerPage, { loading, error })
 
   return (
     <>
       <Typography variant="h3" component="h1" gutterBottom>
         Companies
       </Typography>
+      <Error error={error} onRetry={refetch} />
       <CompaniesTable
+        loading={loading}
         companies={data?.companies?.nodes || []}
         total={data?.companies?.total || 0}
         order={order}

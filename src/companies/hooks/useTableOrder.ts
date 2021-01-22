@@ -17,16 +17,17 @@ export const useTableOrder = (defaultOrderBy: OrderBy = 'name', defaultOrder: Or
   const { order: searchOrder, orderBy: searchOrderBy } = qs.parse(search)
   const searchLatest = useLatest(search)
 
-  const [orderBy, setOrderBy] = useState<OrderBy>((searchOrderBy as OrderBy) || defaultOrderBy)
-  const [order, setOrder] = useState<Order>((searchOrder as Order) || defaultOrder)
+  const [{ order, orderBy }, setState] = useState<{
+    order: Order
+    orderBy: OrderBy
+  }>({ order: (searchOrder as Order) || defaultOrder, orderBy: (searchOrderBy as OrderBy) || defaultOrderBy })
 
   // handle order changing in table
   const onOrderChange = (by: OrderBy) => {
     if (by === orderBy) {
-      setOrder(order === 'asc' ? 'desc' : 'asc')
+      setState((state) => ({ ...state, order: state.order === 'asc' ? 'desc' : 'asc' }))
     } else {
-      setOrderBy(by)
-      setOrder('asc')
+      setState((state) => ({ ...state, orderBy: by, order: 'asc' }))
     }
   }
 

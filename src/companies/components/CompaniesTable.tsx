@@ -9,12 +9,21 @@ import {
   TablePagination,
   TableRow,
   TableSortLabel,
-  LinearProgress,
+  makeStyles,
+  Theme,
+  createStyles,
 } from '@material-ui/core'
 import { Company, Order, OrderBy } from '../../common/types'
 
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    loading: { opacity: 0.5, transition: 'opacity 0.2s ease-out' },
+  })
+)
+
 type Props = {
   companies: Company[]
+  loading: boolean
   total: number
   order: Order
   orderBy: OrderBy
@@ -26,6 +35,7 @@ type Props = {
 }
 
 export const CompaniesTable: React.FC<Props> = ({
+  loading,
   page,
   rowsPerPage,
   onPageChange,
@@ -36,10 +46,11 @@ export const CompaniesTable: React.FC<Props> = ({
   onOrderChange,
   companies,
 }) => {
+  const classes = useStyles()
   return (
     <Paper>
       {/* Table itself */}
-      <TableContainer>
+      <TableContainer className={loading ? classes.loading : undefined}>
         <Table>
           <TableHead>
             <TableRow>
@@ -90,6 +101,7 @@ export const CompaniesTable: React.FC<Props> = ({
 
       {/* Table pagination */}
       <TablePagination
+        className={loading ? classes.loading : undefined}
         rowsPerPageOptions={[10, 20, 30, 50]}
         component="div"
         count={total}
