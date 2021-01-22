@@ -5,10 +5,11 @@ import { useHistory, useLocation } from 'react-router-dom'
 import { Typography } from '@material-ui/core'
 import { useTableOrder } from '../hooks/useTableOrder'
 import { CompaniesTable } from '../components/CompaniesTable'
+import { useTablePagination } from '../hooks/useTablePagination'
 
 const GET_COMPANIES = gql`
-  query GetCompanies($offset: Int, $limit: Int) {
-    companies(limit: $limit, offset: $offset) {
+  query GetCompanies($offset: Int, $limit: Int, $sortBy: SortBy) {
+    companies(limit: $limit, offset: $offset, sortBy: $sortBy) {
       limit
       offset
       total
@@ -24,23 +25,35 @@ const GET_COMPANIES = gql`
 `
 
 export const CompaniesIndexRoute: React.FC = () => {
+  const { order, orderBy, onOrderChange } = useTableOrder()
+  const { page, rowsPerPage, onPageChange, onRowsPerPageChange } = useTablePagination()
+
   const { loading, error, data, refetch } = useQuery(GET_COMPANIES, {
     variables: {
-      offset: 0,
-      limit: 20,
+      offset: (page - 1) * rowsPerPage,
+      limit: rowsPerPage,
+      sortBy: { field: orderBy, order: order },
     },
   })
 
-  const { order, orderBy, onOrderChange } = useTableOrder()
-
-  console.log('DATA', data)
+  console.log('DATA', data, 'PAGE', page, rowsPerPage)
 
   return (
     <>
       <Typography variant="h3" component="h1" gutterBottom>
         Companies
       </Typography>
-      <CompaniesTable companies={data?.companies?.nodes || []} order={order} orderBy={orderBy} onOrderChange={onOrderChange} />
+      <CompaniesTable
+        companies={data?.companies?.nodes || []}
+        total={data?.companies?.total || 0}
+        order={order}
+        orderBy={orderBy}
+        onOrderChange={onOrderChange}
+        page={page}
+        rowsPerPage={rowsPerPage}
+        onPageChange={onPageChange}
+        onRowsPerPageChange={onRowsPerPageChange}
+      />
     </>
   )
 }

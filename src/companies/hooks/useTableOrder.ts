@@ -4,13 +4,13 @@ import { useHistory, useLocation } from 'react-router-dom'
 import { useLatest, useUpdateEffect } from 'react-use'
 import { Order, OrderBy } from '../../common/types'
 
-type UseVideosOrderReturn = {
+type UseTableOrderReturn = {
   order: Order
   orderBy: OrderBy
   onOrderChange: (orderBy: OrderBy) => void
 }
 
-export const useTableOrder = (defaultOrderBy: OrderBy = 'name', defaultOrder: Order = 'asc'): UseVideosOrderReturn => {
+export const useTableOrder = (defaultOrderBy: OrderBy = 'name', defaultOrder: Order = 'asc'): UseTableOrderReturn => {
   // reading order & orderBy from location params
   const history = useHistory()
   const { search } = useLocation()
