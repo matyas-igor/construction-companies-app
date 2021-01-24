@@ -1,16 +1,10 @@
-# Front-end application
+# 🏗 Front-end application displaying a list of construction companies
 
-Front-end starter application.
+![Screen Shot 2021-01-25 at 01 35 33](https://user-images.githubusercontent.com/3536796/105645941-2ba45b00-5e9d-11eb-9378-9e21815354b5.png)
 
 - Uses [`react`](https://reactjs.org/) together with [`styled-components`](https://styled-components.com/)
 - Bootsrapped with `create-react-app` and `typescript`
 
-## Limitations
-
-- Not optimized for mobile devices
-- Tested only in Chrome on desktops
-- No backend API connected or simulated
- 
 ---
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
