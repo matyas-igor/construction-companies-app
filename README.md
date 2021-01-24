@@ -1,5 +1,7 @@
 # 🏗 Front-end application displaying a list of construction companies
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/3540ea17-b471-414b-9b41-5b77f02d8c38/deploy-status)](https://app.netlify.com/sites/construction-companies-app/deploys)
+
 ![Screen Shot 2021-01-25 at 01 35 33](https://user-images.githubusercontent.com/3536796/105645941-2ba45b00-5e9d-11eb-9378-9e21815354b5.png)
 
 - Uses [`react`](https://reactjs.org/) together with [`styled-components`](https://styled-components.com/)
