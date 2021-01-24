@@ -43,18 +43,6 @@ export const CompaniesFilter: React.FC<Props> = ({
       <Grid item xs={4}>
         <Autocomplete
           multiple
-          options={citiesOptions}
-          filterSelectedOptions
-          renderInput={(params) => (
-            <TextField {...params} variant="outlined" label="Cities" placeholder="Select cities…" />
-          )}
-          value={cities}
-          onChange={(e, values: string[]) => setFilter({ cities: values })}
-        />
-      </Grid>
-      <Grid item xs={4}>
-        <Autocomplete
-          multiple
           options={specialitiesOptions}
           filterSelectedOptions
           renderInput={(params) => (
@@ -62,6 +50,18 @@ export const CompaniesFilter: React.FC<Props> = ({
           )}
           value={specialities}
           onChange={(e, values: string[]) => setFilter({ specialities: values })}
+        />
+      </Grid>
+      <Grid item xs={4}>
+        <Autocomplete
+          multiple
+          options={citiesOptions}
+          filterSelectedOptions
+          renderInput={(params) => (
+            <TextField {...params} variant="outlined" label="Cities" placeholder="Select cities…" />
+          )}
+          value={cities}
+          onChange={(e, values: string[]) => setFilter({ cities: values })}
         />
       </Grid>
     </Grid>

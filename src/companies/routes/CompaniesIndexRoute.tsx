@@ -43,9 +43,9 @@ const GET_COMPANIES = gql`
 `
 
 export const CompaniesIndexRoute: React.FC = () => {
-  const { debouncedQ, q, cities, specialities, setFilter } = useTableFilter()
-  const { order, orderBy, onOrderChange } = useTableOrder()
   const { page, rowsPerPage, onPageChange, onRowsPerPageChange } = useTablePagination()
+  const { debouncedQ, q, cities, specialities, setFilter } = useTableFilter('', () => onPageChange(1))
+  const { order, orderBy, onOrderChange } = useTableOrder()
 
   const { loading, error, data, refetch } = useQuery(GET_COMPANIES, {
     variables: {

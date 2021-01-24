@@ -16,12 +16,13 @@ type UseTableFilterReturn = State & {
   setFilter: (values: Partial<State>) => void
 }
 
-export const useTableFilter = (defaultQuery = ''): UseTableFilterReturn => {
+export const useTableFilter = (defaultQuery = '', onFilterChange: () => void): UseTableFilterReturn => {
   // reading order & orderBy from location params
   const history = useHistory()
   const { search } = useLocation()
   const { q: searchQuery, cities: searchCities, specialities: searchSpecialities } = qs.parse(search)
   const searchLatest = useLatest(search)
+  const onFilterChangeLatest = useLatest(onFilterChange)
 
   const [{ q, cities, specialities }, setState] = useState<State>({
     q: (searchQuery as string) || defaultQuery,
@@ -34,6 +35,7 @@ export const useTableFilter = (defaultQuery = ''): UseTableFilterReturn => {
 
   // updating location params
   useUpdateEffect(() => {
+    onFilterChangeLatest.current?.()
     const params = { ...qs.parse(searchLatest.current), q: debouncedQ, cities, specialities }
     history.push({
       search: qs.stringify(params),
